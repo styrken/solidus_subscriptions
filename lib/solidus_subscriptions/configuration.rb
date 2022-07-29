@@ -8,6 +8,7 @@ module SolidusSubscriptions
       :clear_past_installments,
       :maximum_reprocessing_time,
       :maximum_total_skips,
+      :shipping_address_required
     )
 
     attr_writer(

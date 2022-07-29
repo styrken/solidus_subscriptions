@@ -88,6 +88,7 @@
 
   <div class="js-customer-details">
     <div class="row">
+      <% if SolidusSubscriptions.configuration.shipping_address_required %>
       <div class="col-6">
         <fieldset class="no-border-bottom">
           <legend align="center"><%= t('spree.shipping_address') %></legend>
@@ -99,6 +100,7 @@
           </div>
         </fieldset>
       </div>
+      <% end %>
 
       <div class="col-6">
         <fieldset class="no-border-bottom">

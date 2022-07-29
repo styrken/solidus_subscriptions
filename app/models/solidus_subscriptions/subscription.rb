@@ -269,7 +269,7 @@ module SolidusSubscriptions
     end
 
     def shipping_address_to_use
-      shipping_address || user.ship_address
+      shipping_address || user.ship_address || billing_address_to_use
     end
 
     def billing_address_to_use
