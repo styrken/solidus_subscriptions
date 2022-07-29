@@ -7,7 +7,7 @@ en:
       human:
   solidus_subscriptions:
     subscription:
-      actionable_date: "Actionable Date"
+      actionable_date: "Renewal Date"
       invalid_payment_details: Invalid payment method or source
     installment_details:
       out_of_stock: >
@@ -97,7 +97,7 @@ en:
         _destroy: Remove?
       solidus_subscriptions/installment:
         created_at: Creation date
-        actionable_date: Actionable date
+        actionable_date: Renewal Date
         state: State
       solidus_subscriptions/installment/state:
         fulfilled: Fulfilled
@@ -106,6 +106,8 @@ en:
         description: Creates a subscription
       solidus_subscriptions/promotion/rules/subscription_installment_order:
         description: Is a subscription installment
+      solidus_subscriptions/subscription:
+        actionable_date: Renewal Date
     models:
       solidus_subscriptions/subscription:
         one: Subscription
