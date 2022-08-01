@@ -12,6 +12,14 @@ module SolidusSubscriptions
             ProcessSubscriptionJob.perform_later(subscription)
           end
       end
+
+      def run_reminders
+        SolidusSubscriptions::Subscription
+          .soon_actionable
+          .find_each do |subscription|
+          ProcessRemindersJob.perform_later(subscription)
+        end
+      end
     end
   end
 end

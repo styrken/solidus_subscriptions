@@ -1,0 +1,9 @@
+Hi <%= @user.bill_address&.name || 'Customer' %>!
+============================
+
+This is a friendly reminder that your <%= @subscription.name %> subscription is going to renew automatically on <%= @subscription.actionable_date %>.  If you'd like to cancel your plan, please do so from the My Account page: https://<%= @store.url %>/account
+
+Please reach out to us if you have any further questions.
+
+Thank you!
+<%= @store.name %> Support

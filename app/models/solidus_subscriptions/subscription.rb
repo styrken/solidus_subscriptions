@@ -48,6 +48,12 @@ module SolidusSubscriptions
         where.not(state: ["canceled", "inactive"])
     end)
 
+    # Find all subscriptions that is soon actionable
+    scope :soon_actionable, (lambda do
+      where("#{table_name}.actionable_date = ?", 2.days.from_now).
+        where.not(state: ["canceled", "inactive"])
+    end)
+
     # Find subscriptions based on their processing state. This state is not a
     # model attribute.
     #
@@ -136,6 +142,11 @@ module SolidusSubscriptions
 
       after_transition to: :active, do: :advance_actionable_date
       after_transition do: :emit_event_for_transition
+    end
+
+    # Generates a name for the subscription using line item names
+    def name
+      line_items.map { |line_item| line_item.subscribable&.name }.join(", ")
     end
 
     # This method determines if a subscription may be canceled. Canceled
