@@ -5,7 +5,7 @@ module SolidusSubscriptions
     queue_as { SolidusSubscriptions.configuration.processing_queue }
 
     def perform(subscription)
-      ::SolidusSubscriptions::UpcomingRenewalMailer(subscription).deliver_now
+      ::SolidusSubscriptions::UpcomingRenewalMailer.upcoming_renewal(subscription).deliver_now
     end
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SolidusSubscriptions
   class UpcomingRenewalMailer < ::Spree::BaseMailer
     def upcoming_renewal(subscription)
