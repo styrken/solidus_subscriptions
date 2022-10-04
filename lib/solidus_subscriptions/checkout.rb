@@ -4,8 +4,9 @@ module SolidusSubscriptions
   class Checkout
     attr_reader :installment
 
-    def initialize(installment)
+    def initialize(installment, reuse_promotions: false)
       @installment = installment
+      @reuse_promotions = reuse_promotions
     end
 
     def process
@@ -38,6 +39,21 @@ module SolidusSubscriptions
     def populate_order(order)
       installment.subscription.line_items.each do |line_item|
         order.contents.add(line_item.subscribable, line_item.quantity)
+      end
+
+      if @reuse_promotions
+        promotion_codes = installment
+                            .subscription
+                            .user
+                            .orders
+                            .flat_map { |o| o.promotions.pluck(:name) }
+
+        promotion_code = promotion_codes.first
+
+        if promotion_code
+          order.coupon_code = promotion_code
+          ::Spree::PromotionHandler::Coupon.new(order).apply
+        end
       end
     end
 
