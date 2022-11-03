@@ -94,8 +94,12 @@ module SolidusSubscriptions
       joins(:line_items).where(line_items: { id: id })
     end)
 
+    scope :with_subscribable_id, (lambda do |id|
+      joins(:line_items).where(line_items: { subscribable_id: id })
+    end)
+
     def self.ransackable_scopes(_auth_object = nil)
-      [:in_processing_state, :with_line_item]
+      [:in_processing_state, :with_line_item, :with_subscribable_id]
     end
 
     def self.processing_states
