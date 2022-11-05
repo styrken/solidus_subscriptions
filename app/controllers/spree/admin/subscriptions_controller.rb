@@ -7,10 +7,14 @@ module Spree
 
       def index
         @search = SolidusSubscriptions::Subscription.accessible_by(current_ability).ransack(params[:q])
+
+        page = params.has_key?(:export) ? 0 : params[:page]
+        per_page = params.has_key?(:export) ? 100000 : (params[:per_page] || Spree::Config[:orders_per_page])
+
         @subscriptions = @search.result(distinct: true).
                          includes(:line_items, :user).
-                         page(params[:page]).
-                         per(params[:per_page] || Spree::Config[:orders_per_page])
+                         page(page).
+                         per(per_page)
 
         if params.has_key?(:export)
           render xlsx: "report", filename: "subscriptions-#{Time.now}.xlsx", disposition: 'inline', formats: :xlsx
