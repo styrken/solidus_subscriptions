@@ -105,6 +105,7 @@
       <div class="actions filter-actions">
         <div data-hook="admin_subscriptions_index_search_buttons">
           <%= button_tag I18n.t('spree.filter_results'), class: 'btn btn-primary' %>
+          <%= button_tag "Export", class: 'btn btn-primary', name: "export", style: "margin-left: 20px" %>
         </div>
       </div>
     <% end %>

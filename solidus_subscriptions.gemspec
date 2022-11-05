@@ -35,6 +35,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'solidus_core', '>= 2.11', '< 4'
   spec.add_dependency 'solidus_support', '~> 0.9'
   spec.add_dependency 'state_machines'
+  spec.add_dependency 'caxlsx'
+  spec.add_dependency 'caxlsx_rails'
 
   spec.add_development_dependency 'rspec-activemodel-mocks'
   spec.add_development_dependency 'shoulda-matchers', '~> 4.4'

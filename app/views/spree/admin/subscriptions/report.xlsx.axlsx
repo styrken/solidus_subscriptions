@@ -1,0 +1,16 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: 'Subscriptions') do |sheet|
+
+    sheet.add_row ['Created At', 'User', 'Renewal Date', 'Interval', 'State', 'Line Items']
+
+    @subscriptions.each do |subscription|
+        sheet.add_row [
+            l(subscription.created_at.to_date),
+            subscription.user.email,
+            subscription.actionable_date ? l(subscription.actionable_date) : '-',
+            subscription.interval.inspect,
+            subscription.state,
+            subscription.line_items.map { |line_item| line_item.subscribable&.name }.join(", ")
+           ]
+    end
+end

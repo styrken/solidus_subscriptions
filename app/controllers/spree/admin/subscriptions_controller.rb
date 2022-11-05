@@ -11,6 +11,12 @@ module Spree
                          includes(:line_items, :user).
                          page(params[:page]).
                          per(params[:per_page] || Spree::Config[:orders_per_page])
+
+        if params.has_key?(:export)
+          render xlsx: "report", filename: "subscriptions-#{Time.now}.xlsx", disposition: 'inline', formats: :xlsx
+        else
+          render :index
+        end
       end
 
       def new
