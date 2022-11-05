@@ -112,6 +112,8 @@
   </div>
 <% end %>
 
+Number of subscriptions: <%= @subscriptions.total_count %>
+
 <%= paginate @subscriptions, theme: 'solidus_admin' %>
 
 <% if @subscriptions.any? %>
