@@ -64,29 +64,6 @@
 
         <div class="field-block col-3">
           <div class="field">
-            <%= label_tag :q_processing_state_eq, SolidusSubscriptions::Subscription.human_attribute_name(:processing_state) %>
-
-            <%
-              processing_states = SolidusSubscriptions::Subscription.processing_states.map do |state|
-                [
-                    SolidusSubscriptions::Subscription.human_attribute_name("processing_state.#{ state }"),
-                    state
-                ]
-              end
-            %>
-
-            <%=
-              f.select(
-                  :in_processing_state,
-                  options_for_select(processing_states, params.dig(:q, :in_processing_state)),
-                  { include_blank: true },
-                  class: 'select2 fullwidth'
-              )
-            %>
-          </div>
-        </div>
-        <div class="field-block col-3">
-          <div class="field">
             <%= label_tag :q_with_subscribable_id_eq, SolidusSubscriptions::Subscription.human_attribute_name(:with_line_item) %>
 
             <%=
@@ -125,7 +102,6 @@ Number of subscriptions: <%= @subscriptions.total_count %>
         <th><%= sort_link(@search, :actionable_date, [:actionable_date, 'id asc'], SolidusSubscriptions::Subscription.human_attribute_name(:actionable_date)) %></th>
         <th><%= sort_link(@search, :line_item_interval_length, SolidusSubscriptions::Subscription.human_attribute_name(:interval)) %></th>
         <th><%= sort_link(@search, :state, [:state, 'id asc'], SolidusSubscriptions::Subscription.human_attribute_name(:state)) %></th>
-        <th><%= sort_link(@search, :processing_state, [:processing_state, 'id asc'], SolidusSubscriptions::Subscription.human_attribute_name(:processing_state)) %></th>
         <th><%= SolidusSubscriptions::Subscription.human_attribute_name(:line_items) %></th>
         <th data-hook="admin_subscriptions_index_header_actions" class="actions"></th>
       </tr>
@@ -139,7 +115,6 @@ Number of subscriptions: <%= @subscriptions.total_count %>
           <td><%= subscription.actionable_date ? l(subscription.actionable_date) : '-' %></td>
           <td><%= subscription.interval.inspect %></td>
           <td><%= render 'state_pill', subscription: subscription %></td>
-          <td><%= render 'processing_state_pill', subscription: subscription %></td>
           <td><%= subscription.line_items.map { |line_item| line_item.subscribable&.name }.join(", ") %></td>
           <td class="actions">
             <% if subscription.state_events.include?(:cancel) %>
